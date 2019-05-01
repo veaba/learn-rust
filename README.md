@@ -369,6 +369,27 @@ fn main(){
     }
 }
 ```
+## 字符串 string
+
+rust 有两种主要的字符串类型 `&str` 和`String` 
+
+### `&str` 字符串片段(string slices)
+
+### `&'static str` 字符串常量 
+
+```rust
+
+// &'static str 的返回值
+fn main(){
+    println!("一个函数返回一个字符串：{}",return_a_string());
+}
+
+fn return_a_string()->(&'static str){
+    let str = "哇哈哈哈";
+    return  str
+}
+
+```
 ## 数组
 
 ### 访问方式 和js 一样 arr[1]
@@ -492,6 +513,40 @@ fn move_copy(str:String){
 |指针|最底层的裸指针,`*const T` `*mut T`,但解引用它们是不安全的，必须放到`unsafe`块里|
 |函数|具有函数类型的变量实质上是一个函数指针|
 |元类型|即`()`，其唯一值也是`()`|
+
+
+### 基本类型
+
+|类型|最小值|最大值|值|描述|所属组|
+|---|---|---|---|---|---|
+|array||||1||
+|bool||||||
+|char||||||
+|f32||||||
+|f64||||||
+|fn||||||
+|i8||||||
+|i16||||||
+|i32||||||
+|i64||||||
+|i128||||||
+|isize||||||
+|never||||||
+|pointer||||||
+|reference||||||
+|slice||||||
+|str||||||
+|tuple||||||
+|u8||||||
+|u16||||||
+|u32||||||
+|u64||||||
+|u128||||||
+|unit||||||
+|usize||||||
+
+
+> https://doc.rust-lang.org/nightly/std/primitive.i8.html
 
 ### 数字转为其他类型
 
