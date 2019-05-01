@@ -1,5 +1,5 @@
 [package]
-name = "learn-rust1"
+name = "learn-rust"
 version = "0.1.0"
 authors = ["veaba <godpu@outlook.com>"]
 edition = "2018"
