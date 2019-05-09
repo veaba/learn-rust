@@ -9,13 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bae53923-57d0-46ec-8aea-a98c7ec59685" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/array/array.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/array/array.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom-types/custom-enums.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom-types/custom-enums.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom-types/enums-c-like.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom-types/enums-c-like.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom-types/enums-use.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom-types/enums-use.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/match/match.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/match/match.rs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -48,8 +41,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="133">
-                <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+              <first_editor relative-caret-position="76">
+                <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
                 <folding>
                   <element signature="e#9#10#0" expanded="true" />
                   <element signature="e#38#39#0" expanded="true" />
@@ -171,18 +164,6 @@
               <item name="learn-rust" type="b2602c69:ProjectViewProjectNode" />
               <item name="learn-rust" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="custom-types" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="learn-rust" type="b2602c69:ProjectViewProjectNode" />
-              <item name="learn-rust" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="match" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="learn-rust" type="b2602c69:ProjectViewProjectNode" />
-              <item name="learn-rust" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="struct" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -295,11 +276,13 @@
       <workItem from="1556506693460" duration="6672000" />
       <workItem from="1556518263283" duration="12700000" />
       <workItem from="1556532801735" duration="18000" />
+      <workItem from="1556617062061" duration="690000" />
+      <workItem from="1557391573410" duration="903000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54565000" />
+    <option name="totallyTimeSpent" value="56158000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -313,7 +296,7 @@
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15671642" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15991472" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -609,8 +592,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="133">
-            <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+          <first_editor relative-caret-position="76">
+            <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
             <folding>
               <element signature="e#9#10#0" expanded="true" />
               <element signature="e#38#39#0" expanded="true" />
