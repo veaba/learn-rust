@@ -6,7 +6,10 @@
 - https://doc.rust-lang.org/std/primitive.f64.html rust 函数库
 - https://doc.rust-lang.org/rust-by-example/index.html rust example
 - https://rust-lang.github.io/rfcs/ rust rfcs
-
+- https://kaisery.gitbooks.io/trpl-zh-cn/content/ 《Rust 程序设计语言》 中文版
+- https://rustwasm.github.io/book/ 《Rust 程序设计语言》 英文版
+- https://doc.rust-lang.org/stable/rust-by-example/ 通过例子来学习rust
+- https://crates.io/ rust 依赖包
 ## 疑问
 - 如何if == string？
 
@@ -570,3 +573,216 @@ Command                                                     | Description
 `rustup man cargo`                                          | \(*Unix only*\) View the man page for a given command (like `cargo`)
 
 
+## Cargo
+- https://rustlang-cn.org/office/rust/cargo/getting-started/installation.html
+### 安装Cargo
+> curl https://sh.rustup.rs -sSf | sh
+
+如果顺利则：
+> Rust is installed now. Great!
+
+### Cargo 第一步
+创建项目：
+> cargo new helloworld
+
+build
+>cargo build
+
+运行
+>./target/debug/helloworld
+
+cargo run 
+>cargo run 
+
+### cargo 指南
+为什么会有cargo：
+- 引入两个带有各种程序包信息的元数据文件
+- 获取和构建项目依赖
+- 正确的构建参数调用rustc 和其他构建工具
+- 引入惯例使得rust程序包开发管理更加容易
+
+已存的cargo项目
+
+```cmd
+git clone xx 
+cd xx
+cargo build
+```
+
+一个cargo依赖如何添加
+
+```toml
+[dependencies]
+time="0.1.12"
+```
+
+cargo build 会获取新的依赖以及依赖的依赖，一并编译。并且更新Cargo.lock文件
+
+
+cargo update 更新依赖
+
+cargo 项目结构：
+```mk
+.
+├── Cargo.lock 具体依赖信息，cargo维护，不应该手动修改，可防止.gitignore文件
+├── Cargo.toml 广义上秒数项目的依赖文件，开发者编写
+├── benches 性能评估
+│   └── large-input.rs
+├── examples 示例目录
+│   └── simple.rs
+├── src 源码
+│   ├── bin
+│   │   └── another_executable.rs
+│   ├── lib.rs 库文件
+│   └── main.rs 默认可执行文件源代码
+└── tests 单元测试
+    └── some-integration-tests.rs
+```
+
+### cargo toml 清单文件
+
+```toml
+[package]
+name = "hello_world"
+version = "0.1.0"
+authors = ["Your Name <you@example.com>"]
+
+[dependencies]
+# 指定依赖仓库
+rand = { git = "https://github.com/rust-lang-nursery/rand.git" }
+
+解决指定版本，没多卵用。
+rand = { git = "https://github.com/rust-lang-nursery/rand.git", rev = "9f35b8e" }
+```
+cargo update  # 更新所有依赖
+cargo update -p rand #仅更新rand
+
+### cargo test
+- `src` 目录下每个文件中的 `tests/`目录,单元测试
+- `test/`目录是集成风格的测试
+- `cargo test` 会运行额外的检查
+- 参考文档https://doc.rust-lang.org/book/testing.html
+
+ 可执行指定参数测试，将测试名称含有foo的所有测试
+> carto test foo
+
+### cargo 持续集成
+#### Travis CI 测试项目
+- 测试所有三个发布通道
+- 任何nightly构建中断将不会使整体构建失败
+- 参考 Travic CI Rust documentation https://docs.travis-ci.com/user/languages/rust/
+```yml
+language:rust
+rust:
+    - stable
+    - beta
+    - nightly
+matrix:
+    allow_failures:
+        - rust :nightly
+```
+
+#### GitLab CI
+
+- stable 通道 和 nightly 通道测试
+- 任何nightly构建中断将不会使整体构建失败
+- Gitlab CI  https://docs.gitlab.com/ce/ci/yaml/README.html
+```yml
+stages:
+    - build
+rust-latest:
+    stage:build
+    image:rust:latest
+    script:
+        - cargo build --verbose
+        - cargo test --verbose
+
+rust-nightly:
+    statge:build
+    image:rustlang/rust:nightly
+    script:
+        - cargo build --verbose
+        - cargo test --verbose
+    allow_failure:true
+```
+
+#### build.sr.ht
+- 确保将`<your repo>`和`<your project>`改变为要克隆和已克隆的目录。
+- 将会在stable和nightly通道测试和构建文档
+- 但是任何nightly构建中断将不会使整体构建失败
+- 参考builds.sr.ht documentation https://man.sr.ht/builds.sr.ht/
+```yml
+image: archlinux
+packages:
+  - rustup
+sources:
+  - <your repo>
+tasks:
+  - setup: |
+      rustup toolchain install nightly stable
+      cd <your project>/
+      rustup run stable cargo fetch
+  - stable: |
+      rustup default stable
+      cd <your project>/
+      cargo build --verbose
+      cargo test --verbose
+  - nightly: |
+      rustup default nightly
+      cd <your project>/
+      cargo build --verbose ||:
+      cargo test --verbose  ||:
+  - docs: |
+      cd <your project>/
+      rustup run stable cargo doc --no-deps
+      rustup run nightly cargo doc --no-deps ||:
+```
+
+
+#### cargo构建缓存
+- 同一个工作区所有项目之间，共享构建信息
+- 第三方工具sscache https://github.com/mozilla/sccache ，可以得到不共享效果
+- 参考 https://rustlang-cn.org/office/rust/cargo/guide/build-cache.html
+
+### cargo 依赖指定
+- 更多详细信息 https://rustlang-cn.org/office/rust/cargo/reference/specifying-dependencies.html
+
+```toml
+[dependencies]
+rand = { git = "https://github.com/rust-lang-nursery/rand" }
+
+# 指定分支
+[dependencies]
+rand = { git = "https://github.com/rust-lang-nursery/rand", branch = "next" }
+
+# 路径依赖指定
+[dependencies]
+hello_utils = { path = "hello_utils" }
+
+# 发布cargo箱子
+[dependencies]
+hello_utils = { path = "hello_utils", version = "0.1.0" }
+
+```
+
+### cargo 清单格式 TODO
+- https://rustlang-cn.org/office/rust/cargo/reference/manifest.html 
+- [package]
+- [profile]
+
+### cargo 环境变量 TODO
+- https://rustlang-cn.org/office/rust/cargo/reference/environment-variables.html
+
+### cargo 构建脚本 
+- https://rustlang-cn.org/office/rust/cargo/reference/build-scripts.html
+
+### cargo 发布依赖到crates.io
+
+### cargo 词汇表
+- https://rustlang-cn.org/office/rust/cargo/appendix/glossary.html
+
+## rust redis
+https://crates.io/crates/redis
+
+## rust mongo
+https://crates.io/crates/mongodb
