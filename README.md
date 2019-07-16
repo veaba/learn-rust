@@ -10,25 +10,28 @@
 - https://rustwasm.github.io/book/ 《Rust 程序设计语言》 英文版
 - https://doc.rust-lang.org/stable/rust-by-example/ 通过例子来学习rust
 - https://crates.io/ rust 依赖包
+- TODO https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html 猜猜看游戏 
 ## 疑问
-- 如何if == string？
 
-- while循环和for循环的区别：
+1. 如何if == string？
+
+2. while循环和for循环的区别：
+
 > 如果数组的索引长度在运行时增加，那么while循环显示错误，但在for循环的情况下不会发生这种情况。 因此，可以说for循环增加了代码的安全性并消除了错误的可能性。
 
-- 为什么要加!
+3. 为什么要加!
 
-- 使用前，需要将变量声明，不存在js类似的变量提升
+4. 使用前，需要将变量声明，不存在js类似的变量提升
 
-- i32表示多少 
-- 不能打印长元组？？ 报错,WHY?
+5. i32表示多少 
+6. 不能打印长元组？？ 报错,WHY?
 ```rust
 fn main(){
    let too_long_tuple=(1,65,56,6,565,65,95,5,655,656,64,65,5,61,6,5656);
    println!("too long tuple:{:?}",too_long_tuple);
 }
 ```
-- rust 如何执行一段函数返回的代码，即函数返回值
+7. rust 如何执行一段函数返回的代码，即函数返回值
 ```rust
 
 /*
@@ -46,7 +49,7 @@ fn main(){
 
 ```
 
-- rust 如何计算一个函数加值的运算，涉及到 ：入参、返回值，类型
+8. rust 如何计算一个函数加值的运算，涉及到 ：入参、返回值，类型
 
 ```rust
 fn main(){
@@ -58,7 +61,7 @@ fn fool(num:i32)->(i32){
 
 ```
 
-- 为什么要加一个&?
+9. 为什么要加一个&?
 
 ```rust
 use std::mem;
@@ -74,7 +77,7 @@ fn main(){
 ```
 
 
-- match在函数中的作用
+10. match在函数中的作用
 ```rust
 fn inspect(event:WebEvent){
     // match干嘛的？
@@ -88,7 +91,7 @@ fn inspect(event:WebEvent){
 }
 ```
 
-- 怎么打印枚举
+11. 怎么打印枚举
 ```rust
 enum Point{
 	x = 111
@@ -96,6 +99,18 @@ enum Point{
 println!("{}");
 
 ```
+
+12. return 部分返回的尖括号？
+
+13. Ok(())是什么意义？
+
+	- Result 风格，大写Ok,因为它是一个枚举enum
+
+	- future中，使用小写ok方法【首选】
+	
+14. 函数括号加问号？
+
+
 ## structures 结构
 
 
@@ -253,6 +268,24 @@ fn main(){
 > rustup update
 ### uninstall 下载
 > rustup self uninstall
+
+## demo
+### 处理一次猜测
+- [处理一次猜测](https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html)
+```rust
+use std::io;
+fn main(){
+    println!("hello world");
+    let mut guess =String::new(); //?干嘛的，空字符串
+    println!("请输入：{}",guess);
+
+    io::stdin().read_line(&mut guess)
+        .expect("读取行失败");
+    println!("你猜的，{}",guess);
+}
+
+```
+
 ## rustup
 
 ## cargo
@@ -781,8 +814,14 @@ hello_utils = { path = "hello_utils", version = "0.1.0" }
 ### cargo 词汇表
 - https://rustlang-cn.org/office/rust/cargo/appendix/glossary.html
 
+### cargo 错误
+> Blocking waiting for file lock on the registry index
+
+解决： rm -rf ~/.cargo/registry/index/*
+
 ## rust redis
-https://crates.io/crates/redis
+- https://crates.io/crates/redis
+- https://docs.rs/redis/0.11.0-beta.2/redis/
 
 ## rust mongo
-https://crates.io/crates/mongodb
+- https://crates.io/crates/mongodb
