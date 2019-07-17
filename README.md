@@ -11,38 +11,33 @@
 - https://doc.rust-lang.org/stable/rust-by-example/ 通过例子来学习rust
 - https://crates.io/ rust 依赖包
 - TODO https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html 猜猜看游戏 
-
-## 常识
-- rust 变量默认不可改变，如需改变，则需要let mut bar="hello world"
-- `let mut foo = String::new()` new 是String类型的关联函数，针对类型实现的，常称：静态方法
-- `new` 创建类型实例的惯用函数名
-- Result 类型是枚举，枚举(enums)，它的值被称为枚举的成员(variants):`ok`,`Err`。
-	- ok 表示成功
-	- Error 表示失败
-- io::Result，的实例拥有expect方法,`return` 的是一个 输入的字节数`usize`
-- rust标准库中尚未包含随机数功能，rust团队提供了 `rand` crate
+## 错误
+- ^^^ `std::result::Result<_, _>` cannot be formatted with the default formatter
+- //#[derive(Debug)]的//去掉时能自动为Student实现std::fmt::Debug特性。
+- only valid in field-less enums
+- `Employee` cannot be formatted with the default formatter
 
 ## 疑问
 
-1. 如何if == string？
+### 1. 如何if == string？
 
-2. while循环和for循环的区别：
+### 2. while循环和for循环的区别：
 
 > 如果数组的索引长度在运行时增加，那么while循环显示错误，但在for循环的情况下不会发生这种情况。 因此，可以说for循环增加了代码的安全性并消除了错误的可能性。
 
-3. 为什么要加!
+### 3. 为什么要加!
 
-4. 使用前，需要将变量声明，不存在js类似的变量提升
+### 4. 使用前，需要将变量声明，不存在js类似的变量提升
 
-5. i32表示多少 
-6. 不能打印长元组？？ 报错,WHY?
+### 5. i32表示多少 
+### 6. 不能打印长元组？？ 报错,WHY?
 ```rust
 fn main(){
    let too_long_tuple=(1,65,56,6,565,65,95,5,655,656,64,65,5,61,6,5656);
    println!("too long tuple:{:?}",too_long_tuple);
 }
 ```
-7. rust 如何执行一段函数返回的代码，即函数返回值
+### 7. rust 如何执行一段函数返回的代码，即函数返回值
 ```rust
 
 /*
@@ -60,7 +55,7 @@ fn main(){
 
 ```
 
-8. rust 如何计算一个函数加值的运算，涉及到 ：入参、返回值，类型
+### 8. rust 如何计算一个函数加值的运算，涉及到 ：入参、返回值，类型
 
 ```rust
 fn main(){
@@ -72,7 +67,9 @@ fn fool(num:i32)->(i32){
 
 ```
 
-9. 为什么要加一个&?
+### 9. 为什么要加一个&?
+
+答案：表示引用
 
 ```rust
 use std::mem;
@@ -88,7 +85,9 @@ fn main(){
 ```
 
 
-10. match在函数中的作用
+### 10. match在函数中的作用
+	- match 由分支(arms)构成，一个分支包含一个模式(pattern)
+	- match的cmp方法会返回`Ordering:Greater`,`Ordering:Less`,`Ordering:Equal`
 ```rust
 fn inspect(event:WebEvent){
     // match干嘛的？
@@ -102,7 +101,7 @@ fn inspect(event:WebEvent){
 }
 ```
 
-11. 怎么打印枚举
+### 11. 怎么打印枚举
 ```rust
 enum Point{
 	x = 111
@@ -111,17 +110,27 @@ println!("{}");
 
 ```
 
-12. return 部分返回的尖括号？
+### 12. return 部分返回的尖括号？
 
-13. Ok(())是什么意义？
+### 13. Ok(())是什么意义？
 
 	- Result 风格，大写Ok,因为它是一个枚举enum
 
 	- future中，使用小写ok方法【首选】
 	
-14. 函数括号加问号？
+### 14. 函数括号加问号？
 
-15. 怎么查看type 类型？
+### 15. 怎么查看type 类型？
+
+### 16. String 转为真正的数字类型
+```text
+let num:u32=guess.trim().parse().expect('xxx')
+
+```
+
+### 17. 如何取到键盘输入的值
+> io::stdin().read_line(&mut xx).expect("错误~~") ，存到一个变量
+
 
 ## structures 结构
 
@@ -131,6 +140,11 @@ rust 通过自定义类型主要通过以下两个关键形成：
 - enum   声明一个枚举
 
 常量可以通过`const` `static`  关键字声明
+
+	- const x = 99; 不合适。x推荐大写
+	- const X=8;错误，X虽然大写，但需要声明数据类型
+	- const X:u32=999 √
+	- const mut X:u32=99  常量不接受可变量修饰符
 
 结构：
 - 元组结构，基本上是命名为元组的。
@@ -270,9 +284,57 @@ fn main(){
 |match|rust关键字提供匹配模式，类似C的 `switch`|参考https://doc.rust-lang.org/rust-by-example/flow_control/match.html|
 |_|下划线|_=>print!("xx"),类似如果下划线在match中，类似switch 的default:|
 ||||
-||||
-||||
-||||
+
+### 定义/结论
+- rust 变量默认不可改变，如需改变，则需要let mut bar="hello world"
+- `let mut foo = String::new()` new 是String类型的关联函数，针对类型实现的，常称：静态方法
+- `new` 创建类型实例的惯用函数名
+- Result 类型是枚举，枚举(enums)，它的值被称为枚举的成员(variants):`ok`,`Err`。
+	- ok 表示成功
+	- Error 表示失败
+- io::Result，的实例拥有expect方法,`return` 的是一个 输入的字节数`usize`
+- rust标准库中尚未包含随机数功能，rust团队提供了 `rand` crate
+- `std::cmp::Ordering`类型，`Ordering`也是一个枚举，成员是`Less`(小于),`Greater`(大于),`Equal`(等于),比较两个值的三种结果
+- //#[derive(Debug)]的//去掉时能自动为Student实现std::fmt::Debug特性。
+- use 枚举名称::*，自动列出咋枚举名称的名称，少些几次枚举名称,直接写成员
+	```text
+		enum Work{
+            Google,
+            Microsoft,
+            Alibaba=999
+        }
+       use Work::*;
+       let work = Google;
+       let worker =Microsoft;
+       let taobao =Alibaba;//??
+	
+	```
+
+### 常量和变量的区别
+
+- let 变量
+	- let x =6 不可变的变量
+	- let mut x=6 自动推断类型，且可变
+- const 常量，大写
+	- const x = 99; 不合适。x推荐大写
+	- const X=8;错误，X虽然大写，但需要声明数据类型
+	- const mut X:u32=99  常量不接受可变量修饰符
+	- const X:u32=999 √
+	
+	
+### 隐藏,shadowing	
+
+重复声明的方式来达到变量替换的目的，后者会替换前面的变量
+
+```rust
+fn main(){
+	let mut x = 666;
+	let x =999;
+	let mut x = 888;//此处的mut 是多余了 
+}
+
+```
+
 ## install
 ### version
 > rustc --version
@@ -297,6 +359,74 @@ fn main(){
 }
 
 ```
+### 猜到对数字
+
+```toml
+[package]
+name = "learn-rust"
+version = "0.1.0"
+authors = ["veaba"]
+edition = "2018"
+
+[dependencies]
+rand="0.3.14"
+
+```
+
+```rust
+
+/**
+@desc 步骤分析：
+    1、生成一个1-100的随机数
+    2、键盘输入一值
+    3、loop循环
+    4、比较大小
+
+*/
+use std::io;
+use rand::Rng;
+use std::cmp::{Ordering,Ord};
+
+fn main() {
+
+    let code = rand::thread_rng().gen_range(1,101);
+    println!("code:{}",code);
+
+
+    loop {
+        println!("======== 请输入你的字符 ========");
+        let mut key=String::new();//生成一个类型为String的实例
+        io::stdin().read_line(&mut key)
+            .expect("输入错误~");
+        println!("你输入的：{}",key);
+
+        // rust 允许用一个新值来隐藏(shadow)guess之前的值：常用于转换值类型之类的场景，
+        // 这种用法，允许复用guess便利店个名称，而不是创建两个不同的变量
+        // 详见：https://kaisery.github.io/trpl-zh-cn/ch03-00-common-programming-concepts.html
+        let key:u32=match key.trim().parse(){
+            Ok(num)=>num,
+            Err(_)=>{
+                println!("字符类型不对");
+                continue
+            }
+        };
+
+        // key 和code 没办法对比,请改为CMP->cmp
+        match key.CMP(&code) {
+            Ordering::Less=>println!("太小了"),
+            Ordering::Greater=>println!("太大了"),
+            Ordering::Equal=>{
+                println!("猜中了，biubiu");
+                break;
+            }
+        }
+
+    }
+
+}
+
+
+```
 
 ## rustup
 
@@ -318,6 +448,7 @@ fn main(){
 
 ## 函数
 |函数|解释|demo|
+|---|---|---|
 |format!()|格式化文本写入字符串||
 |print!|类似format!，但打印到控制台||
 |println!()类似print!但会添加新的一行|||
@@ -327,6 +458,7 @@ fn main(){
 ||||
 ||||
 
+## 系统/全局函数或方法
 
 ### print!()  
 - print!(双引号)，且只能是字符串
@@ -341,6 +473,39 @@ fn main(){
 ```
 
 ### println!()
+
+```rust
+println!("{}","xxx");
+println!("{:?}",xxx);
+
+```
+### .to_owned()
+### .iter()
+### match  类似 `switch`
+```rust
+fn main(){
+	let number=1;
+    println!("the number:{}",number);
+    // prime
+    match number {
+        1=>println!("One"),
+        2=>println!("Two"),
+        3|4|5|6|7|11=>println!("匹配的数字"),
+        12...19=>println!("A ten哇"),
+        // 不是特殊的
+        _=>println!("default"),
+    }
+    let boolean =true;
+    let binary =match boolean
+        {
+            false=>0,
+            true=>1
+        };
+    println!("{}-{}",boolean,binary);
+}
+
+```
+
 
 ## if判断语句
 ```rust
@@ -359,7 +524,7 @@ fn main(){
 ```
 ## if in a let语句
 
-## error
+## 错误处理error
 - https://doc.rust-lang.org/error-index.html#E0308  rust编译错误索引
 
 > expected integer, found char
@@ -442,35 +607,8 @@ fn return_a_string()->(&'static str){
 
 ### 访问方式 和js 一样 arr[1]
 
-## 方法
-### .to_owned()
-### .iter()
+## 数组的函数/方法
 
-### match  类似 `switch`
-```rust
-fn main(){
-	let number=1;
-    println!("the number:{}",number);
-    // prime
-    match number {
-        1=>println!("One"),
-        2=>println!("Two"),
-        3|4|5|6|7|11=>println!("匹配的数字"),
-        12...19=>println!("A ten哇"),
-        // 不是特殊的
-        _=>println!("default"),
-    }
-    let boolean =true;
-    let binary =match boolean
-        {
-            false=>0,
-            true=>1
-        };
-    println!("{}-{}",boolean,binary);
-}
-
-```
-- 访问数组的每个元素
 
 
 
@@ -542,6 +680,31 @@ fn move_copy(str:String){
 
 >let s =String::from("S/\q\t\nI}POYY<M?>?M>NM>M<JKLKL:KLII//\dh");
 
+## 字符串函数/方法
+
+### len() 取长度
+
+```rust
+fn main(){
+	let x = 999;
+	println!("{}",x.len()); //错误
+	let y ="66";
+	println!("{}",y.len());
+}
+
+```
+### trim() 移除首尾字符
+
+```rust
+fn main(){
+	let str1 = "\n 444";
+	println!("{}",str1.trim());
+}
+
+```
+### .parse() 转为数字类型，并且会返回一个枚举，含有两个成员，ok和 err类型
+
+### .expect('msg')一般处理异常抛出的结果
 
 ## 数据类型
 
@@ -563,6 +726,59 @@ fn move_copy(str:String){
 |元类型|即`()`，其唯一值也是`()`|
 
 
+### 标量类型
+
+
+- `整型`。没有小数部分的数字，默认`i32`
+
+rust中的整型
+
+|长度|有符号|无符号(负数)|-(2<sub>n-1</sub> -1)|
+|----|-----|-----||
+|8-bit|`i8`|`u8`||
+|16-bit|`i16`|`u16`||
+|32-bit|`i32`|`u32`||
+|64-bit|`i64`|`u64`||
+|arch|`isize`|`usize`||
+|||||
+
+`isize`和`usize` 类型依赖计算机架构，64位是64位，32位是32位
+
+rust中的整型字面值
+
+|数字字面值| 例子 |
+|----     |---- |
+|`Decimal`|`98_222`|
+|`Hex`|`0xff`|
+|`Octal`|`0o77` |
+|`Binary`|`0b1111_0000`|
+|`byte` (`u8` only)|b`A`|
+
+**整型溢出**：`u8` 放到0-255值，修改为`256`，被称为`整型溢出`(idnteger overflow)
+
+在 release 构建中，Rust 不检测溢出，相反会进行一种被称为 “two’s complement wrapping” 的操作。简而言之，256 变成 0，257 变成 1，依此类推。依赖溢出被认为是一种错误，即便可能出现这种行为。如果你确实需要这种行为，标准库中有一个类型显式提供此功能，Wrapping。
+
+
+
+- `浮点型`。带小数点的数字，有两个原生的浮点数类型`f32`、`f64`，默认`f64`。IEEE-754标准
+	- `f32` 单精度浮点数
+	- `f64` 双精度浮点数
+```rust
+fn  main(){
+	let x = 2.0; // f64
+	let y:f32= 3.2; //f32
+
+}
+```
+- `布尔型`。bool
+	- true
+	- false
+- `字符类`。
+	- `char`代表Unicode
+
+
+
+	
 ### 基本类型
 
 |类型|最小值|最大值|值|描述|所属组|

@@ -16,6 +16,7 @@ enum WebEvent{
     Click{x:i64,y:i64}
 }
 
+
 // A function which takes a `WebEvent` enum as an argument and
 // 枚举webEvent 作为函数的参数,可以理解为js中的对象里面的方法
 fn inspect(event:WebEvent){
@@ -35,9 +36,21 @@ fn main(){
 	let pressed = WebEvent::Keypress('x');
     let pasted = WebEvent::Paste("wa.. My love".to_owned());//干嘛？
     let click= WebEvent::Click {x:20,y:999};
+
+//    println!("{:?}",pasted);
+//    println!("{:?}",click);
+
+    match click {
+        WebEvent::Click {x,y}=>{
+            println!("click at x={},y={}",x,y)
+        }
+        _ => {}
+    }
+
     inspect(load);
     inspect(unload);
     inspect(pressed);
     inspect(pasted);
     inspect(click);
+    how()
 }

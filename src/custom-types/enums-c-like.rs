@@ -23,7 +23,7 @@ fn main(){
     println!("zero is {}",Number::Zero as i32);
     println!("One is {}",Number::Four as i32);
     println!("Three is {}",Number::Sex as i32);
-
+M
     // roses
     println!("玫瑰: #{:06x}",Colors::Red as i32);
     println!("大海: #{:06x}",Colors::Blue as i32);
