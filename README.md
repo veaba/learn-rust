@@ -11,6 +11,17 @@
 - https://doc.rust-lang.org/stable/rust-by-example/ 通过例子来学习rust
 - https://crates.io/ rust 依赖包
 - TODO https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html 猜猜看游戏 
+
+## 常识
+- rust 变量默认不可改变，如需改变，则需要let mut bar="hello world"
+- `let mut foo = String::new()` new 是String类型的关联函数，针对类型实现的，常称：静态方法
+- `new` 创建类型实例的惯用函数名
+- Result 类型是枚举，枚举(enums)，它的值被称为枚举的成员(variants):`ok`,`Err`。
+	- ok 表示成功
+	- Error 表示失败
+- io::Result，的实例拥有expect方法,`return` 的是一个 输入的字节数`usize`
+- rust标准库中尚未包含随机数功能，rust团队提供了 `rand` crate
+
 ## 疑问
 
 1. 如何if == string？
@@ -110,6 +121,7 @@ println!("{}");
 	
 14. 函数括号加问号？
 
+15. 怎么查看type 类型？
 
 ## structures 结构
 
@@ -627,6 +639,8 @@ build
 cargo run 
 >cargo run 
 
+cargo doc --open 生成并打开一个文档，构建所有本地依赖提供的文档。帅！
+>cargo doc --open
 ### cargo 指南
 为什么会有cargo：
 - 引入两个带有各种程序包信息的元数据文件
@@ -684,11 +698,12 @@ authors = ["Your Name <you@example.com>"]
 # 指定依赖仓库
 rand = { git = "https://github.com/rust-lang-nursery/rand.git" }
 
-解决指定版本，没多卵用。
+# 解决指定版本，没多卵用。
 rand = { git = "https://github.com/rust-lang-nursery/rand.git", rev = "9f35b8e" }
 ```
-cargo update  # 更新所有依赖
-cargo update -p rand #仅更新rand
+cargo update   更新所有依赖
+
+cargo update -p rand 仅更新rand
 
 ### cargo test
 - `src` 目录下每个文件中的 `tests/`目录,单元测试
