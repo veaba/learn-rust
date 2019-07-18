@@ -131,6 +131,16 @@ let num:u32=guess.trim().parse().expect('xxx')
 ### 17. 如何取到键盘输入的值
 > io::stdin().read_line(&mut xx).expect("错误~~") ，存到一个变量
 
+### 18. TODO 如何迭代/循环元组？
+```rust
+fn main(){
+let long_tuple =(
+        1u8,2u16,3u32,4u64,
+        -1i8,-2i16,-3i32,-4i64,
+        0.1f32,0.2f64,'a',true);
+}
+```
+### 19.TODO，比如test()`?` 这个后面的问号是干嘛的？
 
 ## structures 结构
 
@@ -296,20 +306,24 @@ fn main(){
 - rust标准库中尚未包含随机数功能，rust团队提供了 `rand` crate
 - `std::cmp::Ordering`类型，`Ordering`也是一个枚举，成员是`Less`(小于),`Greater`(大于),`Equal`(等于),比较两个值的三种结果
 - //#[derive(Debug)]的//去掉时能自动为Student实现std::fmt::Debug特性。
-- use 枚举名称::*，自动列出咋枚举名称的名称，少些几次枚举名称,直接写成员
-	```text
-		enum Work{
-            Google,
-            Microsoft,
-            Alibaba=999
-        }
-       use Work::*;
-       let work = Google;
-       let worker =Microsoft;
-       let taobao =Alibaba;//??
-	
-	```
+- use 枚举名称::*，自动列出枚举名称的名称，少写几次枚举名称,直接写成员
+```text
+	enum Work{
+        Google,
+        Microsoft,
+        Alibaba=999
+    }
+   use Work::*;
+   let work = Google;
+   let worker =Microsoft;
+   let taobao =Alibaba;//??
 
+```
+- rust 使用 snake case 风格，所有字母都小写并使用下划线分割
+- rust 函数声明提升，无论声明在调用之前或之后
+- rust 函数的参数必须有类型fn test(arg1:i32,arg2:u64)
+- rust 是一门基于表达式的语言(expression-based)
+- rust 无法使用`x=y=6`
 ### 常量和变量的区别
 
 - let 变量
@@ -556,7 +570,7 @@ fn main(){
 
 - 循环数组
 ```rust
-//TODO 循环数组
+// 循环数组
 fn main(){
 	let res =["mango","apple","banana","litchi","watermelon"];
     for i in res.iter() { //iter()方法
@@ -605,11 +619,16 @@ fn return_a_string()->(&'static str){
 ```
 ## 数组
 
+- 数组每个元素的类型必须相同
+- 不可减少长度或者增加长度
+
 ### 访问方式 和js 一样 arr[1]
 
 ## 数组的函数/方法
 
 
+## vector 可伸缩的数组
+- 标准库提供的一个允许增长和缩小长度的类似数组的集合类型
 
 
 ## 所有权
@@ -774,7 +793,11 @@ fn  main(){
 	- true
 	- false
 - `字符类`。
-	- `char`代表Unicode
+	- `char`代表Unicode,单个字符，中文或者其他语言的单字
+
+### 复合类型
+- tuple `(a,b,c,d)`
+- array `[a,b,c,d]`
 
 
 

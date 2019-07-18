@@ -33,7 +33,7 @@ fn main(){
     let long_array = [99,65,656,126,-1];
     println!("数组：{:?}",long_array);
 
-    // 不能打印长元组？？ 报错
+    // todo 不能打印长元组？？ 报错
     // let too_long_tuple=(1,65,56,6,565,65,95,5,655,656,64,65,5,61,6,5656);
     // println!("too long tuple:{:?}",too_long_tuple);
 
