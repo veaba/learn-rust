@@ -725,6 +725,24 @@ fn main(){
 
 ### .expect('msg')一般处理异常抛出的结果
 
+## fs 
+
+```rust
+use std::fs;
+fn write_file() -> std::io::Result<()> {
+    fs::write("foo.txt","哈哈哈")?;
+    Ok(())
+}
+
+
+fn main() {
+    println!("hello world");
+    let _ = write_file();
+}
+
+
+```
+
 ## 数据类型
 
 |类型 |值  |
