@@ -11,6 +11,7 @@
 - https://doc.rust-lang.org/stable/rust-by-example/ 通过例子来学习rust
 - https://crates.io/ rust 依赖包
 - TODO https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html 猜猜看游戏 
+- https://rustwiki.org/zh-CN/rust-by-example/std/result.html 中文，例子学习
 ## 错误
 - ^^^ `std::result::Result<_, _>` cannot be formatted with the default formatter
 - //#[derive(Debug)]的//去掉时能自动为Student实现std::fmt::Debug特性。
@@ -142,6 +143,11 @@ let long_tuple =(
 ```
 ### 19.TODO，比如test()`?` 这个后面的问号是干嘛的？
 
+
+### 20. 问号是干嘛的？fs::write("foo.txt","哈哈哈")?;
+
+### 21. 数字转字符串
+
 ## structures 结构
 
 
@@ -171,8 +177,8 @@ struct Person<'a> {
     age: u8,
 }
  fn main(){
- 	  let pair =Pair(99,99.99);
- 	  let Pair{x,y}=pair;
+ 	  let pair =Pair(99,99.9);
+ 	  let Pair{x,y}=pair; //todo ??
  	  println!("{:?}\n{:?}",x,y);
  	  
  	   let name = "Jogel";
@@ -201,7 +207,23 @@ use Work::*;
 
 ```
 
+## 定时器
 
+```rust
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    let mut x = 1;
+    while x < 10 {
+        println!("{},{}",x,"哈哈哈哈");
+        x += 1;
+        thread::sleep(Duration::from_millis(1000));
+    }
+    println!("{},{}",x,"哦哦哦");
+}
+
+```
 ## 内存和分配
 
 ![堆栈](./static/images/stack-heap.png);
@@ -471,6 +493,24 @@ fn main(){
 ||||
 ||||
 ||||
+
+
+```rust
+
+// ->指返回
+fn add_one(x:i32)->i32{
+	x+1
+}
+
+// todo 问号是干嘛的？fs::write("foo.txt","哈哈哈")?;
+
+
+// let _ = fs::write("foo.txt", "哈哈哈");
+
+```
+
+### 函数发散,不会返回
+
 
 ## 系统/全局函数或方法
 

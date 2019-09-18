@@ -28,7 +28,6 @@ fn main() {
 // 追加的方式写入文本
 
 fn fs_append(x:i32){
-    println!("哈哈哈哈============");
-//    let mut file=OpenOptions::new().append(true).open("main1.txt").expect("异常");
-//    file.write_all((x.to_string()+"：写文件呀\n").as_bytes()).expect("write_all 错误");
+    let mut file=OpenOptions::new().append(true).open("main1.txt").expect("异常");
+    file.write_all((x.to_string()+"：写文件呀\n").as_bytes()).expect("write_all 错误");
 }

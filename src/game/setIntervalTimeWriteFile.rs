@@ -1,15 +1,18 @@
 // 定时器写入文件
 use std::fs;
-fn write_file() -> std::io::Result<()> {
+//fn write_file() -> std::io::Result<()> {
+//    fs::write("foo.txt","哈哈哈")?;
+//    Ok(())
+//}
 
-    fs::write("foo.txt","哈哈哈")?;
-    Ok(())
+fn write_file(){
+    let _ = fs::write("foo.txt", "哈哈哈");
+    //此处不能用分号！
 }
-
 
 fn main() {
     println!("hello world");
-    let _ = write_file();
+    write_file();
 }
 
 
