@@ -18,6 +18,35 @@
 - only valid in field-less enums
 - `Employee` cannot be formatted with the default formatter
 
+## 入门知识点
+- rust 是静态类型，必须知道类型，且不能随更改类型
+
+- 变量隐藏和复写
+```rust
+fn main(){
+	let x =5;
+    let x=x+1;
+    let x =x*2;
+}
+```
+
+- 倒数第二及以前的段落必须结尾加分号
+
+- 函数内部 最后一行如果不用return 的方式返回，就不能给该行使用分号
+	- 表达式返回值
+```rust
+fn main(){
+    let x =five();
+    println!("{}",x);
+}
+
+// 如果函数最后一行不带return且不
+fn five()->i32{
+    5
+}
+```
+
+
 ## 疑问
 
 ### 1. 如何if == string？
@@ -286,7 +315,36 @@ fn main(){
 	- 字符类型，如 `char`
 
 
+
 ### 所有权和函数
+
+## 所有权（ownership）【重点】
+
+### 管理计算机内存的方式
+- 垃圾回收机制
+	- javascript
+	- java
+- 手动分配和释放内存
+	- C语言
+- 所有权系统管理内存
+	- Rust
+
+### 关于rust 所有权的描述
+编译器在编译时会根据一系列的规则进行检查，runtime，ownership 所有权系统的任何功能不会减慢程序
+
+- [阮一峰：汇编语言入门教程](http://www.ruanyifeng.com/blog/2018/01/assembly-language-primer.html)
+
+- Heap（堆）：程序运行时产生，用户去申请的,存储值
+	- 缺乏组织性
+	- 大小未知
+	- 手动请求和分配一块区域存储数，返回地址的指针：这个过程叫：在堆上分配内存
+- Stack（栈）：push、pop 等相关，函数运行时而临时占用的内存区域。后进先出（叠盘子）
+
+
+这属于新的概念
+
+
+
 
 ## 常识
 
