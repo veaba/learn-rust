@@ -1,12 +1,10 @@
-fn main(){
-    let mut x =0;
-    loop {
-        x+=1;
-        if x>10 {
-            break
-        }
-        println!("----");
-    }
-    print!("{}",x);
-}
+use std::convert::Infallible;
+use std::net::SocketAddr;
+use hyper::{Body, Request, Response, Server};
+use hyper::service::{make_service_fn, service_fn};
 
+
+#[tokio:main]
+async fn main(){
+    println!("hahha~~")
+}
