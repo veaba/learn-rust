@@ -244,6 +244,8 @@ async fn main() -> std::io::Result<()> {
 
 ![](static/images/why-change-the-var.png)
 
+可以：utils::arg_result(arg.clone())解决问题
+
 
 ### 24. rust 的`impl`
 - `impl` 作为关键字定义参数类型
@@ -289,6 +291,32 @@ fn main() {
 - 可变引用不能存在别名
 
 ### Vec
+
+### rust 函数如何返回一个不定长的数组？
+
+
+```rust
+// error
+pub fn arg_array(arg:String) -> &mut [T] {
+    ["a"]
+}
+
+// 其中一种方法
+
+pub fn arg_array(arg: String) -> Vec<&'static str> {
+    println!("入参=>{}", arg);
+    let array = ["das", "das","dsad"];
+    println!("len =>{}",array.len());
+    let mut vec = Vec::with_capacity(array.len());
+    for i in 0..array.len(){
+        vec.push(array[i])
+    }
+    return vec;
+}
+
+```
+
+
 
 ## structures 结构
 
