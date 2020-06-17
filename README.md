@@ -12,11 +12,48 @@
 - https://crates.io/ rust 依赖包
 - TODO https://kaisery.github.io/trpl-zh-cn/ch02-00-guessing-game-tutorial.html 猜猜看游戏 
 - https://rustwiki.org/zh-CN/rust-by-example/std/result.html 中文，例子学习
+
 ## 错误
 - ^^^ `std::result::Result<_, _>` cannot be formatted with the default formatter
 - //#[derive(Debug)]的//去掉时能自动为Student实现std::fmt::Debug特性。
 - only valid in field-less enums
 - `Employee` cannot be formatted with the default formatter
+- `not found in this scope`
+
+```text
+pub fn arg_result(arg: String) -> tuple {
+    |                                   ^^^^^ not found in this scope
+error: aborting due to previous error
+```
+
+```rust
+// use
+
+let ab = utils::arg_result(arg);
+println!("arg result==?,{}", ab);
+println!("{:?}", arg);
+
+
+// var  utils.rs
+pub fn arg_result(arg: String) -> tuple {
+    // return ("a", "2");
+    ("a","b")
+}
+
+
+```
+- `Use of moved value`
+  - [分析文章](https://www.cnblogs.com/dhcn/p/12152116.html)
+    编译器说，我们新加入的行里用了“移动了的值”。
+
+    啥叫“移动了的值”呢？
+
+    说白了就是用过了的值，foo已经给第一个fn_a()用过了，到了第二个fn_a()的时候就是moved value了。然后就不让用了。
+
+    至于为什么要制定这样的规则，[解释]()
+
+    现在我们开始动手来解决这个问题。
+
 
 ## 入门知识点
 - rust 是静态类型，必须知道类型，且不能随更改类型
@@ -200,6 +237,58 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 ```
+
+### 23. 为什么这里会变更掉变量值的类型
+
+` use of moved value`
+
+![](static/images/why-change-the-var.png)
+
+
+### 24. rust 的`impl`
+- `impl` 作为关键字定义参数类型
+- `impl` 关键字定义指定struct的实现代码，然后在这代码块中定义与struct相关的方法
+
+### 25. rust 中的方法和函数
+
+方法与函数非常相似
+
+- 方法：必须有与之关联的`Struct`，且第一个参数是`self`
+```rust
+struct Style {
+    width: u32,
+    height: u32,
+}
+
+impl Style {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect = Style {
+        width: 30,
+        height: 90,
+    };
+    println!("{:?}", rect.area())
+}
+
+```
+
+### 引用
+
+两种引用类型：
+
+- 共享指针：`&`
+- 可变指针：`&mut`
+
+规则：
+
+- 引用的生命周期不能超过被引用内容
+- 可变引用不能存在别名
+
+### Vec
 
 ## structures 结构
 
