@@ -54,6 +54,11 @@ pub fn arg_result(arg: String) -> tuple {
 
     现在我们开始动手来解决这个问题。
 
+- `returns a value referencing data owned by the current function`
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
+- `cannot return value referencing local variable "temp_arg"`
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
+
 
 ## 入门知识点
 - rust 是静态类型，必须知道类型，且不能随更改类型
@@ -278,7 +283,7 @@ fn main() {
 
 ```
 
-### 引用
+### 引用 Reference
 
 两种引用类型：
 
@@ -289,6 +294,29 @@ fn main() {
 
 - 引用的生命周期不能超过被引用内容
 - 可变引用不能存在别名
+
+
+
+### 借用 Borrow
+
+### Rust 生命周期
+Rust 会通过分析引用对象的`声明周期`来防止引用一个不可用的对象。
+
+生命周期的主要目标是为了防止`悬空指针`
+
+```rust
+{
+    let r;
+    {
+        let x =5;
+        r = &x; // 被销毁了
+    }
+    println!("r :{}",r)
+}
+```
+外部作用域声明了变量`r`，内部作用域声明了变量`x`，在内部产生设置了`r` 为 `x`的引用，当内部区域终止时，尝试打印`r`，上述代码无法通过编译。
+
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
 
 ### Vec
 
