@@ -59,6 +59,7 @@ pub fn arg_result(arg: String) -> tuple {
 - `cannot return value referencing local variable "temp_arg"`
 查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
 
+`explicit lifetime required in the type of `
 
 ## 入门知识点
 - rust 是静态类型，必须知道类型，且不能随更改类型
@@ -283,7 +284,7 @@ fn main() {
 
 ```
 
-### 引用 Reference
+### 26. 引用 Reference
 
 两种引用类型：
 
@@ -297,9 +298,9 @@ fn main() {
 
 
 
-### 借用 Borrow
+### 27. 借用 Borrow
 
-### Rust 生命周期
+### 28. Rust 生命周期
 Rust 会通过分析引用对象的`声明周期`来防止引用一个不可用的对象。
 
 生命周期的主要目标是为了防止`悬空指针`
