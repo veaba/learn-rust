@@ -1,24 +1,39 @@
-use rustc_serialize::json;
-#[derive(Debug)]
-pub struct TestStruct {
-    data_int: u8,
-    data_str: String,
-    data_vector: Vec<u8>,
-    school: School,
-}
+use serde_json::{Result, Value};
 
-struct School {
-    name: String
-}
+// #[derive(Debug)]
+// pub struct TestStruct {
+//     data_int: u8,
+//     data_str: String,
+//     data_vector: Vec<u8>,
+//     school: School,
+// }
+//
+// struct School {
+//     name: String
+// }
 
 fn main() {
-    let object = TestStruct {
-        data_int: 1,
-        data_str: "homura".to_string(),
-        data_vector: vec![2, 3, 4, 5],
-        school: School {
-            name: "浙江".to_string()
-        },
-    };
-    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+    let object = json_to_enum().unwrap();
+    println!("{:#?}", object); // TestStruct` cannot be formatted using `{:?}`
+    println!("=dsadd=>{}", object["name"]);
+
+    match object {
+        _name => println!("dad====>{}",_name),
+    }
+}
+
+
+// JSON转Value枚举值
+fn json_to_enum() -> Result<Value> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("name===>{}", v["name"]);
+    println!("==>{:?}", v);
+    Ok(v)
 }

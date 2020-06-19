@@ -345,7 +345,7 @@ pub fn arg_array(arg: String) -> Vec<&'static str> {
 
 ```
 
-###  rust 结构体里有结构如何打印？
+###  31. rust 结构体里有结构如何打印？
 
 ```rust
 struct MainModule {
@@ -372,6 +372,91 @@ fn main(){
 }
 ```
 
+### 32. 类似这种结构，怎么打印Object 返回？
+
+```rust
+
+fn main() {
+    let object = json_to_struct();
+    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+}
+
+
+fn json_to_struct() -> Result<()> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("==>{:?}", v);
+    Ok(())
+    // TODO 如何返回v
+}
+
+```
+
+改动如下：
+
+```rust
+use serde_json::{Result,Value};
+fn main() {
+    let object = json_to_struct();
+    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+}
+
+
+fn json_to_struct() -> Result<Value> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("==>{:?}", v);
+    Ok(v)
+}
+
+```
+
+二次改动
+
+```rust
+
+use serde_json::{Result,Value};
+fn main() {
+    let object = json_to_struct().unwrap();
+    println!("{:#?}", object); // TestStruct` cannot be formatted using `{:?}`
+    // println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+    // println!("name==>{:#?}", object.name);
+    println!("=dsadd=>{}", object["name"]);
+}
+
+
+fn json_to_struct() ->Result<Value> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("name===>{}",v["name"]);
+    println!("==>{:?}", v);
+    Ok(v)
+}
+```
+这是啥？
+```rust
+    match object {
+        _name => println!("dad====>{}",_name),
+    }
+```
 
 ## structures 结构
 
