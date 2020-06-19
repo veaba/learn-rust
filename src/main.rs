@@ -1,11 +1,24 @@
-use std::fs::File;
-use std::io::Read;
+use rustc_serialize::json;
+#[derive(Debug)]
+pub struct TestStruct {
+    data_int: u8,
+    data_str: String,
+    data_vector: Vec<u8>,
+    school: School,
+}
 
-extern crate resolv_conf;
+struct School {
+    name: String
+}
+
 fn main() {
-    let mut buf = Vec::with_capacity(4096);
-    let mut f = File::open("F:/Github/learn-rust/ngnix.conf").unwrap();
-    f.read_to_end(&mut buf).unwrap();
-    let cfg = resolv_conf::Config::parse(&buf).unwrap();
-    println!("---- Config -----\n{:#?}\n", cfg);
+    let object = TestStruct {
+        data_int: 1,
+        data_str: "homura".to_string(),
+        data_vector: vec![2, 3, 4, 5],
+        school: School {
+            name: "浙江".to_string()
+        },
+    };
+    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
 }

@@ -319,9 +319,9 @@ Rust 会通过分析引用对象的`声明周期`来防止引用一个不可用�
 
 查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
 
-### Vec
+### 29. Vec
 
-### rust 函数如何返回一个不定长的数组？
+### 30. rust 函数如何返回一个不定长的数组？
 
 
 ```rust
@@ -345,6 +345,32 @@ pub fn arg_array(arg: String) -> Vec<&'static str> {
 
 ```
 
+###  rust 结构体里有结构如何打印？
+
+```rust
+struct MainModule {
+    user: String,
+    // TODO auto 1 2 3 4 5 6
+    worker_processes: u32,
+    event: EventModule,
+    // error_log: String,
+    // pid: String,
+    // worker_rlimit_nofile: u32,
+    // http: HttpModule,
+}
+
+struct EventModule {
+    worker_connections: u32,
+}
+
+fn main(){
+    let config = MainModule {
+        user: String::from("www www"),
+        worker_processes: 2
+    }
+    println!("==>{:#?}", config.event) // why can;t print this?
+}
+```
 
 
 ## structures 结构

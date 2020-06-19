@@ -11,3 +11,24 @@ fn main(){
     //:#? 是干嘛的
     println!("{:#?}",peter);
 }
+
+
+/*
+struct Person {
+    name: String,
+    age: u8,
+}
+fn main() {
+    let name = "JoGel";
+    let age = 26;
+    let peter = Person {
+        name: String::from(name),
+        age,
+    };
+
+    //:#? 是干嘛的
+    println!("{:#?}", peter);
+}
+
+
+*/
