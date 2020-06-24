@@ -508,7 +508,6 @@ fn main() {
 }
 
 ```
-
 ### 35. struct 打印
 - 必须要加`#[derive(Debug)]`，否则无法使用 {:#?}打印struct
 - [src/struct/struct.rs](src/struct/struct.rs)
@@ -556,6 +555,9 @@ fn main() {
 
 
 ```
+### 37. struct 转普通字符串
+也只能参考struct 转 json 字符串
+
 ## structures 结构
 
 
