@@ -83,7 +83,7 @@ fn main(){
     println!("{}",x);
 }
 
-// 如果函数最后一行不带return且不
+// 如果函数最后一行不带`return`且不带分号，则认为是一个`return`，可省去关键字`return`
 fn five()->i32{
     5
 }
@@ -336,7 +336,6 @@ pub fn arg_array(arg: String) -> Vec<&'static str> {
     println!("入参=>{}", arg);
     let array = ["das", "das","dsad"];
     println!("len =>{}",array.len());
-    let mut vec = Vec::with_capacity(array.len());
     for i in 0..array.len(){
         vec.push(array[i])
     }
@@ -367,7 +366,7 @@ fn main(){
     let config = MainModule {
         user: String::from("www www"),
         worker_processes: 2
-    }
+    };
     println!("==>{:#?}", config.event) // why can;t print this?
 }
 ```
@@ -451,12 +450,6 @@ fn json_to_struct() ->Result<Value> {
     Ok(v)
 }
 ```
-这是啥？
-```rust
-    match object {
-        _name => println!("dad====>{}",_name),
-    }
-```
 
 ### 33. json字符串转struct
 ```rust
@@ -514,14 +507,55 @@ fn main() {
     println!("struct to json==>{}", encode);
 }
 
-}
-
 ```
 
 ### 35. struct 打印
 - 必须要加`#[derive(Debug)]`，否则无法使用 {:#?}打印struct
 - [src/struct/struct.rs](src/struct/struct.rs)
 
+
+### 36. struct 嵌套struct 如何转为json?
+```rust
+extern crate rustc_serialize;
+
+use rustc_serialize::json;
+
+// Struct Parent
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Parent {
+    name: String,
+    age: u8,
+    children: Children,
+}
+
+// Struct Children
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Children {
+    name: String,
+    age: u8,
+    school: String,
+}
+
+fn main() {
+    let person = Parent {
+        name: "Li".to_string(),
+        age: 35,
+        children: Children {
+            name: "Li's son".to_string(),
+            age: 8,
+            school: "primary".to_string(),
+        },
+    };
+    println!("no children==>{:#?}", person); // 可以打印出来person
+
+    let to_json_str = json::encode(&person).unwrap();
+    println!("json str==>{}", to_json_str);
+}
+
+
+```
 ## structures 结构
 
 
