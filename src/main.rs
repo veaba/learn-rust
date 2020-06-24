@@ -1,39 +1,31 @@
-use serde_json::{Result, Value};
+extern crate rustc_serialize;
 
-// #[derive(Debug)]
-// pub struct TestStruct {
-//     data_int: u8,
-//     data_str: String,
-//     data_vector: Vec<u8>,
-//     school: School,
-// }
-//
-// struct School {
-//     name: String
-// }
+use rustc_serialize::json;
 
-fn main() {
-    let object = json_to_enum().unwrap();
-    println!("{:#?}", object); // TestStruct` cannot be formatted using `{:?}`
-    println!("=dsadd=>{}", object["name"]);
-
-    match object {
-        _name => println!("dad====>{}",_name),
-    }
+// Automatically generate `RustcDecodable` and `RustcEncodable` trait
+// implementations
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+pub struct TestStruct {
+    data_int: u8,
+    data_str: String,
+    data_vector: Vec<u8>,
 }
 
+fn main() {
+    // 初始化TestStruct
+    let object = TestStruct {
+        data_int: 1,
+        data_str: "homura".to_string(),
+        data_vector: vec![2, 3, 4, 5],
+    };
 
-// JSON转Value枚举值
-fn json_to_enum() -> Result<Value> {
-    let json = r#"
-        {
-            "name":"asjdsak",
-            "age":30,
-            "type":true
-        }
-    "#;
-    let v: Value = serde_json::from_str(json)?;
-    println!("name===>{}", v["name"]);
-    println!("==>{:?}", v);
-    Ok(v)
+    // 将TestStruct转意为字符串
+    let encoded = json::encode(&object).unwrap();
+    println!("Struct 转为 字符串==> {}", encoded);
+    // Deserialize using `json::decode`
+    // 将json字符串中的数据转化成TestStruct对应的数据，相当于初始化
+    let decoded: TestStruct = json::decode(&encoded).unwrap();
+    println!("json字符串转为struct data_vector==>{:?}", decoded.data_vector);
+    println!("json字符串转为struct==>{:#?}", decoded);
 }

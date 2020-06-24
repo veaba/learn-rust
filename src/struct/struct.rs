@@ -1,4 +1,4 @@
-#[derive(Debug)]//TODO 干嘛的？
+#[derive(Debug)]//必须这加这一段，否则无法使用 {:#?}打印struct
 // <'a>是干嘛的？TODO
 struct Person<'a>{
     name:&'a str,
