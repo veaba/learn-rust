@@ -1,5 +1,4 @@
-// 结构体方法
-
+// 结构体引用
 // 结构体定义
 #[derive(Debug)]
 struct Site {
@@ -9,14 +8,7 @@ struct Site {
     found: u32,
 }
 
-// imple 定义方法
-
-impl Site {
-    fn get_name(&self) -> String {
-        String::from(&self.name) + "===> 获取名字"
-        // self.name + String::from(": This is my name!")
-    }
-}
+//
 
 fn main() {
     let domain = String::from("domain.com");
@@ -36,7 +28,4 @@ fn main() {
         ..google
     };
     println!("\n{:#?}", site);
-
-    let x = site.get_name();
-    println!("xxx=>{}", x);
 }

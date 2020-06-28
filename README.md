@@ -558,6 +558,8 @@ fn main() {
 ### 37. struct 转普通字符串
 也只能参考struct 转 json 字符串
 
+### 38. 可省略的struct
+
 ## structures 结构
 
 
