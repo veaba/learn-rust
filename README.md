@@ -560,6 +560,29 @@ fn main() {
 
 ### 38. 可省略的struct
 
+### 39. 禁用无效代码检查
+
+> #[allow(dead_code)]
+
+### 40. 匿名函数 TODO
+
+Rust 使用闭包(`closure`) 来创建匿名函数
+
+```rust
+let num=5;
+let plus_num= |x:i32| x +num;
+```
+闭包`plus_num`借用了它的作用域中的`let` 绑定`num`，如想让闭包获取所有权，可以使用`move`关键字：
+
+```rust
+let mut num=5;
+{
+    let mut add_num=move |x:i32| num+=x; //  闭包通过move 获取num所有权
+    add_num(5)
+}
+```
+
+
 ## structures 结构
 
 

@@ -1,42 +1,26 @@
-// 结构体方法
-
-// 结构体定义
 #[derive(Debug)]
-struct Site {
-    domain: String,
-    name: String,
-    nation: String,
-    found: u32,
+struct User {
+    username: String,
+    email:String,
+    age:u64,
+    active:bool
 }
 
-// imple 定义方法
 
-impl Site {
-    fn get_name(&self) -> String {
-        String::from(&self.name) + "===> 获取名字"
-        // self.name + String::from(": This is my name!")
-    }
-}
 
 fn main() {
-    let domain = String::from("domain.com");
-    let name = String::from("Hello world!");
-    let google = Site {
-        domain,
-        name,
-        nation: String::from("Han"),
-        found: 6,
+    let user_a=User{
+        email:String::from("abc@qq.com"),
+        username:String::from("abc"),
+        age:26,
+        active:true,
     };
-
-    println!("==> {:#?}", google);
-
-    let site = Site {
-        domain: String::from("baidu.com"),
-        name: String::from("百度一下，你就知道"),
-        ..google
+    
+    let user_b=User{
+        email:String::from("cdf@qq.com"),
+        username:String::from("cdf"),
+        ..user_a
     };
-    println!("\n{:#?}", site);
-
-    let x = site.get_name();
-    println!("xxx=>{}", x);
+    println!("user a==>{:#?}",user_a);
+    println!("user b==>{:#?}",user_b);
 }

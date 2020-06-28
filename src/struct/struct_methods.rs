@@ -9,7 +9,7 @@ struct Site {
     found: u32,
 }
 
-// imple 定义方法
+// imple 定义方法，结构体的方法是必须要impl 来定义的！
 
 impl Site {
     fn get_name(&self) -> String {
