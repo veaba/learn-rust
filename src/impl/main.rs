@@ -27,3 +27,4 @@ fn main() {
     let triangle_area = a.area();
     println!("==>{}", triangle_area);
     println!("==>{:#?}", a);
+}
