@@ -277,7 +277,42 @@ fn main() {
 }
 
 ```
+### 26 文件调用别的文件的函数方法
 
+```rust
+//  a.rs
+use crate::shared::QRErrorCorrectLevel::H;
+
+// b.rs
+pub struct Code {
+    width: i32,
+    height: i32,
+    type_number: i32,
+    color_dark: String,
+    color_light: String,
+    correct_level: H,
+}
+
+// main.rs
+mod shared;
+```
+
+### 27. rust 如何实现类似 js 中的对象
+
+### 28. rust &b"" ??
+
+```rust
+use bytes::{Bytes}
+
+fn main(){
+
+    let b = Bytes::new();
+    println("{:?}",&b[..])
+}
+
+```
+
+看起来 bytes，声明是 b"", 需要 `&x[..]` 展开，然后是是一个数组
 ### 引用
 
 两种引用类型：

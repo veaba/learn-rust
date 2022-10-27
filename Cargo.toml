@@ -2,10 +2,11 @@
 name = "learn-rust"
 version = "0.1.0"
 authors = ["veaba <godpu@outlook.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 rand="0.3.14"
 hyper="0.13"
 tokio={version="0.2",features=["full"]}
 regex="1"
+bytes="1"
