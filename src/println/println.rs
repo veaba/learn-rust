@@ -31,5 +31,5 @@ fn main(){
 
     // 不工作，代码，TODO
     struct Structure(i32);
-    println!("这个结构`{}`,不能打印...,{:?}",Structure(3))
+    println!("这个结构`{}`,不能打印...,{#:?}",Structure(3))
 }

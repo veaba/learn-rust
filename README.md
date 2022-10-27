@@ -54,6 +54,12 @@ pub fn arg_result(arg: String) -> tuple {
 
     现在我们开始动手来解决这个问题。
 
+- `returns a value referencing data owned by the current function`
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
+- `cannot return value referencing local variable "temp_arg"`
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
+
+`explicit lifetime required in the type of `
 
 ## 入门知识点
 - rust 是静态类型，必须知道类型，且不能随更改类型
@@ -77,7 +83,7 @@ fn main(){
     println!("{}",x);
 }
 
-// 如果函数最后一行不带return且不
+// 如果函数最后一行不带`return`且不带分号，则认为是一个`return`，可省去关键字`return`
 fn five()->i32{
     5
 }
@@ -313,7 +319,8 @@ fn main(){
 ```
 
 看起来 bytes，声明是 b"", 需要 `&x[..]` 展开，然后是是一个数组
-### 引用
+
+### 29. 引用 Reference
 
 两种引用类型：
 
@@ -325,9 +332,32 @@ fn main(){
 - 引用的生命周期不能超过被引用内容
 - 可变引用不能存在别名
 
-### Vec
 
-### rust 函数如何返回一个不定长的数组？
+
+### 30. 借用 Borrow
+
+### 31. Rust 生命周期
+Rust 会通过分析引用对象的`声明周期`来防止引用一个不可用的对象。
+
+生命周期的主要目标是为了防止`悬空指针`
+
+```rust
+{
+    let r;
+    {
+        let x =5;
+        r = &x; // 被销毁了
+    }
+    println!("r :{}",r)
+}
+```
+外部作用域声明了变量`r`，内部作用域声明了变量`x`，在内部产生设置了`r` 为 `x`的引用，当内部区域终止时，尝试打印`r`，上述代码无法通过编译。
+
+查看例子[lifecycle/lifecycle.rs](lifecycle/lifecycle.rs)
+
+### 32. Vec
+
+### 33. rust 函数如何返回一个不定长的数组？
 
 
 ```rust
@@ -342,7 +372,6 @@ pub fn arg_array(arg: String) -> Vec<&'static str> {
     println!("入参=>{}", arg);
     let array = ["das", "das","dsad"];
     println!("len =>{}",array.len());
-    let mut vec = Vec::with_capacity(array.len());
     for i in 0..array.len(){
         vec.push(array[i])
     }
@@ -351,8 +380,279 @@ pub fn arg_array(arg: String) -> Vec<&'static str> {
 
 ```
 
+###  34. rust 结构体里有结构如何打印？
+
+```rust
+struct MainModule {
+    user: String,
+    // TODO auto 1 2 3 4 5 6
+    worker_processes: u32,
+    event: EventModule,
+    // error_log: String,
+    // pid: String,
+    // worker_rlimit_nofile: u32,
+    // http: HttpModule,
+}
+
+struct EventModule {
+    worker_connections: u32,
+}
+
+fn main(){
+    let config = MainModule {
+        user: String::from("www www"),
+        worker_processes: 2
+    };
+    println!("==>{:#?}", config.event) // why can;t print this?
+}
+```
+
+### 35. 类似这种结构，怎么打印Object 返回？
+
+```rust
+
+fn main() {
+    let object = json_to_struct();
+    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+}
 
 
+fn json_to_struct() -> Result<()> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("==>{:?}", v);
+    Ok(())
+    // TODO 如何返回v
+}
+
+```
+
+改动如下：
+
+```rust
+use serde_json::{Result,Value};
+fn main() {
+    let object = json_to_struct();
+    println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+}
+
+
+fn json_to_struct() -> Result<Value> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("==>{:?}", v);
+    Ok(v)
+}
+
+```
+
+二次改动
+
+```rust
+
+use serde_json::{Result,Value};
+fn main() {
+    let object = json_to_struct().unwrap();
+    println!("{:#?}", object); // TestStruct` cannot be formatted using `{:?}`
+    // println!("{:#?}", object) // TestStruct` cannot be formatted using `{:?}`
+    // println!("name==>{:#?}", object.name);
+    println!("=dsadd=>{}", object["name"]);
+}
+
+
+fn json_to_struct() ->Result<Value> {
+    let json = r#"
+        {
+            "name":"asjdsak",
+            "age":30,
+            "type":true
+        }
+    "#;
+    let v: Value = serde_json::from_str(json)?;
+    println!("name===>{}",v["name"]);
+    println!("==>{:?}", v);
+    Ok(v)
+}
+```
+
+### 35. json字符串转struct
+```rust
+extern crate rustc_serialize;
+
+use rustc_serialize::json;
+
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Profile {
+    name: String,
+    age: u8,
+    phones: Vec<String>,
+}
+
+fn main() {
+    let json_str = r#"
+    {
+        "name":"veaba",
+        "age":26,
+        "phones":[
+            "110",
+            "120",
+            "119"
+        ]
+    }
+    "#;
+    let profile: Profile = json::decode(&json_str).unwrap();
+    println!("json to struct==>{:#?}", profile);
+}
+
+```
+### 36. struct转json字符串
+```rust
+extern crate rustc_serialize;
+
+use rustc_serialize::json;
+
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Profile {
+    name: String,
+    age: u8,
+    phones: Vec<String>,
+}
+
+fn main() {
+    let profile = Profile {
+        name: "Jobs".to_string(),
+        age: 99,
+        // phones: vec!["110", "120", "199", "144"],
+        phones: vec!["110".to_string(), "120".to_string(), "199".to_string(), "144".to_string()],
+    };
+    let encode = json::encode(&profile).unwrap();
+    println!("struct to json==>{}", encode);
+}
+
+```
+### 37. struct 打印
+- 必须要加`#[derive(Debug)]`，否则无法使用 {:#?}打印struct
+- [src/struct/struct.rs](src/struct/struct.rs)
+
+
+### 38. struct 嵌套struct 如何转为json?
+```rust
+extern crate rustc_serialize;
+
+use rustc_serialize::json;
+
+// Struct Parent
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Parent {
+    name: String,
+    age: u8,
+    children: Children,
+}
+
+// Struct Children
+#[derive(RustcDecodable, RustcEncodable)]
+#[derive(Debug)]
+struct Children {
+    name: String,
+    age: u8,
+    school: String,
+}
+
+fn main() {
+    let person = Parent {
+        name: "Li".to_string(),
+        age: 35,
+        children: Children {
+            name: "Li's son".to_string(),
+            age: 8,
+            school: "primary".to_string(),
+        },
+    };
+    println!("no children==>{:#?}", person); // 可以打印出来person
+
+    let to_json_str = json::encode(&person).unwrap();
+    println!("json str==>{}", to_json_str);
+}
+
+
+```
+### 39. struct 转普通字符串
+也只能参考struct 转 json 字符串
+
+### 40. 可省略的struct
+
+### 41. 禁用无效代码检查
+
+> #[allow(dead_code)]
+
+### 42. 匿名函数 TODO
+
+Rust 使用闭包(`closure`) 来创建匿名函数
+
+```rust
+let num=5;
+let plus_num= |x:i32| x +num;
+```
+闭包`plus_num`借用了它的作用域中的`let` 绑定`num`，如想让闭包获取所有权，可以使用`move`关键字：
+
+```rust
+let mut num=5;
+{
+    let mut add_num=move |x:i32| num+=x; //  闭包通过move 获取num所有权
+    add_num(5)
+}
+```
+
+### 43. 如何合并多个结构？
+
+```rust
+fn get_merge_config() {
+    let default_config = get_default_config();
+    let outside_config= get_outside_config();
+    let merge_config=ConfigModule{
+        default_config, // TODO ??
+        ..outside_config
+    };
+    println!("default config===>{:#?}", default_config);
+    return merge_config;
+}
+
+```
+
+### 44. 如何简写if 或操作
+
+```rust
+// TODO 如何简写一下代码？
+fn main() {
+    let a = String::from("aa");
+    let b = String::from("bb");
+    // let c: String = a | b;
+    let c;
+    if a.len() > 0 {
+        c = a
+    } else {
+        c = b
+    }
+
+    println!("{}", c);
+}
+
+```
 ## structures 结构
 
 
